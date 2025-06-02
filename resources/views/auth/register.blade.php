@@ -1,74 +1,99 @@
-@extends('layouts.guest')
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - {{ config('app.name') }}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link href="{{ asset('css/signup.css') }}" rel="stylesheet">
+</head>
+<body>
+    
+    <header>
+        <div class="wrapper">
+            <nav>
+                <div class="left">
+                    <!-- Left: Login Card -->
+                    <div class="signup-card">
+                        <h1>Signup</h1>
+                        <p class="subtitle">Just some details to get you in!</p>
 
-@section('content')
-    <div class="card-body login-card-body">
-        <p class="login-box-msg">{{ __('Register') }}</p>
+                        <form action="{{ route('register') }}" method="POST">
+                            @csrf
+                            <div class="username">
+                                <input type="text" name="name" placeholder="Username" value="{{ old('name') }}" />
+                                @error('name')
+                                    <span class="error">{{ $message }}</span>
+                                @enderror
+                            </div>
+                            
+                            <div class="e-mail">
+                                <input type="email" name="email" placeholder="E-mail" value="{{ old('email') }}" />
+                                @error('email')
+                                    <span class="error">{{ $message }}</span>
+                                @enderror
+                            </div>
 
-        <form method="POST" action="{{ route('register') }}">
-            @csrf
+                            <div class="password" style="position: relative;">
+                                <input type="password" name="password" placeholder="Password" id="password" />
+                                <img src="{{ asset('images/eye-icon.svg') }}" class="eye-icon password-eye" alt="" />
+                                @error('password')
+                                    <span class="error">{{ $message }}</span>
+                                @enderror
+                            </div>
 
-            <div class="input-group mb-3">
-                <input type="text" name="name" class="form-control @error('name') is-invalid @enderror"
-                       placeholder="{{ __('Name') }}" required autocomplete="name" autofocus>
-                <div class="input-group-append">
-                    <div class="input-group-text">
-                        <span class="fas fa-user"></span>
+                            <div class="confirm-password" style="position: relative;">
+                                <input type="password" name="password_confirmation" placeholder="Confirm Password" id="confirm-password" />
+                                <img src="{{ asset('images/eye-icon.svg') }}" class="eye-icon confirm-eye" alt="" />
+                            </div>
+
+                            <div class="options">
+                                <input type="checkbox" id="remember" name="remember" />
+                                <label for="remember">Remember me</label>
+                            </div>
+
+                            <button type="submit" class="btn">Signup</button>
+                        </form>
+
+                        <div class="signup-footer">
+                            Already Registered? <a href="{{ route('login') }}">Login</a>
+                        </div>
+                    </div>
+                </div>   
+                <!-- Right: Welcome Text and Illustration -->
+                <div class="hero-section">
+                    <div class="right">
+                        <h1>Welcome to <br> LANZADERA!</h1>
+                        <p class="sub">Together with us</p>
+                        <img src="{{ asset('images/human.png') }}" alt="" />
                     </div>
                 </div>
-                @error('name')
-                <span class="error invalid-feedback">
-                    {{ $message }}
-                </span>
-                @enderror
-            </div>
+            </nav>
+        </div>
+    </header>
 
-            <div class="input-group mb-3">
-                <input type="email" name="email" class="form-control @error('email') is-invalid @enderror"
-                       placeholder="{{ __('Email') }}" required autocomplete="email">
-                <div class="input-group-append">
-                    <div class="input-group-text">
-                        <span class="fas fa-envelope"></span>
-                    </div>
-                </div>
-                @error('email')
-                <span class="error invalid-feedback">
-                    {{ $message }}
-                </span>
-                @enderror
-            </div>
+    <script src="{{ asset('js/signup.js') }}"></script>
+    <script>
+        const passwordInput = document.querySelector('#password');
+        const confirmPasswordInput = document.querySelector('#confirm-password');
+        const passwordEyeIcon = document.querySelector('.password-eye');
+        const confirmEyeIcon = document.querySelector('.confirm-eye');
 
-            <div class="input-group mb-3">
-                <input type="password" name="password" class="form-control @error('password') is-invalid @enderror"
-                       placeholder="{{ __('Password') }}" required autocomplete="new-password">
-                <div class="input-group-append">
-                    <div class="input-group-text">
-                        <span class="fas fa-lock"></span>
-                    </div>
-                </div>
-                @error('password')
-                <span class="error invalid-feedback">
-                    {{ $message }}
-                </span>
-                @enderror
-            </div>
+        function togglePasswordVisibility(inputElement, eyeIcon) {
+            const isPassword = inputElement.type === 'password';
+            inputElement.type = isPassword ? 'text' : 'password';
+            eyeIcon.src = isPassword ? '{{ asset("images/eye-on.svg") }}' : '{{ asset("images/eye-icon.svg") }}';
+        }
 
-            <div class="input-group mb-3">
-                <input type="password" name="password_confirmation"
-                       class="form-control @error('password_confirmation') is-invalid @enderror"
-                       placeholder="{{ __('Confirm Password') }}" required autocomplete="new-password">
-                <div class="input-group-append">
-                    <div class="input-group-text">
-                        <span class="fas fa-lock"></span>
-                    </div>
-                </div>
-            </div>
+        passwordEyeIcon.addEventListener('click', () => {
+            togglePasswordVisibility(passwordInput, passwordEyeIcon);
+        });
 
-            <div class="row">
-                <div class="col-12">
-                    <button type="submit"
-                            class="btn btn-primary btn-block">{{ __('Register') }}</button>
-                </div>
-            </div>
-        </form>
-    </div>
-@endsection
+        confirmEyeIcon.addEventListener('click', () => {
+            togglePasswordVisibility(confirmPasswordInput, confirmEyeIcon);
+        });
+    </script>
+</body>
+</html>

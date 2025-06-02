@@ -29,4 +29,9 @@ Route::group(['middleware' => 'isAdmin','prefix' => 'admin', 'as' => 'admin.'], 
     Route::get('profile', [\App\Http\Controllers\ProfileController::class, 'show'])->name('profile.show');
     Route::put('profile', [\App\Http\Controllers\ProfileController::class, 'update'])->name('profile.update');
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::get('/signup', [RegisteredUserController::class, 'create'])
+        ->middleware('guest')
+        ->name('register');
+    Route::post('/signup', [RegisteredUserController::class, 'store'])
+        ->middleware('guest');
 });
