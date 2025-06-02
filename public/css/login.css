@@ -1,0 +1,284 @@
+:root {
+    --white-color: #EEEEEE;
+    --black-color: #333437;
+    --light-purple-color: #E4D6FF;
+    --medium-purple-color: #925FE2;
+    --dark-purple-color: #9C6FE4;   
+}
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+*::after,
+*::before {
+    box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-image: url('images/BG.png');
+  background-size: cover;
+  background-position: center;
+  font-family: 'Poppins', sans-serif;
+  background-repeat: no-repeat;
+  height: 100vh;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+
+.login-card {
+  width: 100%;
+  max-width: 600px;
+  height: 796px;
+  right: 50%;
+  position: absolute;
+  left: 5%;
+  top: calc(50% - 796px/2);
+  padding: 40px 30px;
+  background: linear-gradient(321.23deg, rgba(191, 191, 191, 0.062) 5.98%, rgba(0, 0, 0, 0) 66.28%), rgba(0, 0, 0, 0.14);
+  box-shadow: -8px 4px 5px rgba(0, 0, 0, 0.24);
+  backdrop-filter: blur(26.5px);  
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
+/* Heading and subtitle styling */
+.login-card h1 {
+  font-size: 36px;
+  font-family: 'Noto Sans';
+  font-style: normal;
+  font-weight: 600;
+  font-weight: 600;
+}
+
+.login-card .subtitle {
+  font-size: 16px;
+  font-family: 'Noto Sans';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 22px;
+  color: #ccc;
+}
+
+/* Input fields (username/password) */
+.username input,
+.password input {
+  width: 100%;
+  padding: 15px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background-color: rgba(255, 255, 255, 0.05);
+  color: white;
+  margin-bottom: 20px;
+  font-size: 1rem;
+  outline: none;
+  transition: border 0.3s;
+}
+
+.username input::placeholder,
+.password input::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.username input:focus,
+.password input:focus {
+  border-color: #a884f6;
+}
+
+/* Eye icon for password */
+.eye-icon {
+  position: absolute;
+  right: 30px;
+  top: 43.5%;
+  transform: translateY(-50%);
+  width: 22px;
+  height: 22px;
+  cursor: pointer;
+  filter: invert(1);
+  opacity: 0.6;
+}
+
+/* Remember Me checkbox */
+.options {
+  display: flex;
+  align-items: center;
+  margin-bottom: 30px;
+  color: white;
+}
+
+.hero-section {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+}
+
+.right {
+  flex: 1;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-end;
+  padding: 40px;
+  text-align: flex-start;
+}
+
+.right h1 {
+  font-size: 2.8rem;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+}
+
+.right h1 span {
+  font-size: 3rem;
+  color: #fff;
+  letter-spacing: 2px;
+}
+
+.right .sub {
+  font-size: 1rem;
+  margin-bottom: 2rem;
+  color: #f0f0f0;
+}
+
+.right img {
+  max-width: 90%;
+  height: auto;
+  margin-top: 20px;
+}
+
+.options input[type="checkbox"] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border: 2px solid #aaa;
+  border-radius: 4px;
+  position: relative;
+  cursor: pointer;
+  outline: none;
+  background-color: transparent;
+  margin-right: 10px;
+  transition: all 0.2s ease;
+}
+
+.options input[type="checkbox"]:checked {
+  border: none;
+  background: linear-gradient(to bottom, #7CC1F3 0%, #D27EEF 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.options input[type="checkbox"]::after {
+  content: '';
+  position: absolute;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+  top: 2px;
+  left: 6px;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.options input[type="checkbox"]:checked::after {
+  opacity: 1;
+}
+
+.error-message {
+    color: #ff6b6b;
+    font-size: 0.875rem;
+    margin-top: -15px;
+    margin-bottom: 15px;
+    display: block;
+}
+
+.btn {
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+color: #ffff;
+padding: 14px 10px;
+gap: 10px;
+
+width: 540px;
+height: 55px;
+
+background: linear-gradient(90.57deg, #628EFF 9.91%, #8740CD 53.29%, #580475 91.56%);
+border-radius: 12px;
+
+flex: none;
+order: 0;
+flex-grow: 0;
+}
+
+.btn:hover {
+  opacity: 0.9;
+  transform: scale(1.02);
+}
+
+/* Forgot Password */
+.forgot-password {
+  text-align: center;
+  margin-bottom: 50px;
+  width: 140px;
+  height: 22px;
+  font-family: 'Noto Sans';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 22px;
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+}
+
+.forgot-password a {
+  color: #ccc;
+  text-decoration: none;
+}
+
+.forgot-password a:hover {
+  text-decoration: underline;
+  color: white;
+}
+
+/* Sign Up footer */
+.signup-footer {
+  text-align: center;
+  font-size: 1rem;
+  color: white;
+  margin-bottom: 50px;
+}
+
+.signup-footer a {
+  color: #a884f6;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.signup-footer a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+  .wrapper {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .left, .right {
+    width: 100%;
+  }
+}

@@ -1,62 +1,86 @@
-@extends('layouts.guest')
+<!DOCTYPE html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - {{ config('app.name', 'Laravel') }}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link href="{{ asset('css/login.css') }}" rel="stylesheet">
+</head>
+<body>
+    <body style="background-image: url('{{ asset('images/BG.png') }}')">
+    <header>
+        <div class="wrapper">
+            <nav>
+                <div class="left">
+                    <!-- Left: Login Card -->
+                    <div class="login-card">
+                        <h1>Login</h1>
+                        <p class="subtitle">Glad you're back!</p>
 
-@section('content')
-    <div class="card-body login-card-body">
-        <p class="login-box-msg">{{ __('Login') }}</p>
+                        <form method="POST" action="{{ route('login') }}">
+                            @csrf
+                            <div class="username">
+                                <input id="email" type="email" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus placeholder="Email" />
+                                @error('email')
+                                    <span class="error-message">{{ $message }}</span>
+                                @enderror
+                            </div>
 
-        <form action="{{ route('login') }}" method="post">
-            @csrf
+                            <div class="password" style="position: relative;">
+                                <input id="password" type="password" name="password" required autocomplete="current-password" placeholder="Password" />
+                                <img src="{{ asset('images/eye-icon.svg') }}" class="eye-icon" alt="Toggle password visibility" />
+                                @error('password')
+                                    <span class="error-message">{{ $message }}</span>
+                                @enderror
+                            </div>
 
-            <div class="input-group mb-3">
-                <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" placeholder="{{ __('Email') }}" required autofocus>
-                <div class="input-group-append">
-                    <div class="input-group-text">
-                        <span class="fas fa-envelope"></span>
+                            <div class="options">
+                                <input type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }} />
+                                <label for="remember">Remember me</label>
+                            </div>
+
+                            <button type="submit" class="btn">Login</button>
+
+                            <div class="forgot-password">
+                                @if (Route::has('password.request'))
+                                    <a href="{{ route('password.request') }}">Forgot password?</a>
+                                @endif
+                            </div>
+
+                            <div class="signup-footer">
+                                Don't have an account? <a href="{{ route('register') }}">Sign Up</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>   
+                <!-- Right: Welcome Text and Illustration -->
+                <div class="hero-section">
+                    <div class="right">
+                        <h1>Welcome to <br> LANZADERA!</h1>
+                        <p class="sub">Login to access your account</p>
+                        <img src="{{ asset('images/human.png') }}" alt="Welcome illustration" />
                     </div>
                 </div>
-                @error('email')
-                <span class="error invalid-feedback">
-                    {{ $message }}
-                </span>
-                @enderror
-            </div>
+            </nav>
+        </div>
+    </header>
 
-            <div class="input-group mb-3">
-                <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" placeholder="{{ __('Password') }}" required>
-                <div class="input-group-append">
-                    <div class="input-group-text">
-                        <span class="fas fa-lock"></span>
-                    </div>
-                </div>
-                @error('password')
-                <span class="error invalid-feedback">
-                    {{ $message }}
-                </span>
-                @enderror
-            </div>
+    <script src="{{ asset('js/login.js') }}"></script>
+    <script>
+      const passwordInput = document.querySelector('.password input');
+      const eyeIcon = document.querySelector('.eye-icon');
 
-            <div class="row">
-                <div class="col-8">
-                    <div class="icheck-primary">
-                        <input type="checkbox" id="remember" name="remember">
-                        <label for="remember">
-                            {{ __('Remember Me') }}
-                        </label>
-                    </div>
-                </div>
-                <!-- /.col -->
-                <div class="col-4">
-                    <button type="submit" class="btn btn-primary btn-block">{{ __('Login') }}</button>
-                </div>
-                <!-- /.col -->
-            </div>
-        </form>
+      eyeIcon.addEventListener('click', () => {
+        // Toggle password visibility
+        const isPassword = passwordInput.type === 'password';
+        passwordInput.type = isPassword ? 'text' : 'password';
 
-        @if (Route::has('password.request'))
-            <p class="mb-1">
-                <a href="{{ route('password.request') }}">{{ __('Forgot Your Password?') }}</a>
-            </p>
-        @endif
-    </div>
-    <!-- /.login-card-body -->
-@endsection
+        // Swap the eye icon image
+        eyeIcon.src = isPassword ? '{{ asset("images/eye-on.svg") }}' : '{{ asset("images/eye-icon.svg") }}';
+      });
+    </script>
+</body>
+</html>
