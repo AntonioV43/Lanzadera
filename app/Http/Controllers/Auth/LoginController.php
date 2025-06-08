@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request; // ✅ Perbaikan penting
+use Illuminate\Support\Facades\Auth; // ✅ Digunakan di method login()
 
 class LoginController extends Controller
 {
@@ -37,4 +39,24 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
+
+    /**
+     * Handle a login request to the application.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function login(Request $request)
+    {
+        $this->validateLogin($request);
+
+        $remember = $request->filled('remember');
+
+        if (Auth::attempt($this->credentials($request), $remember)) {
+            return redirect()->intended($this->redirectPath());
+        }
+
+        return $this->sendFailedLoginResponse($request);
+    }
+    
 }
