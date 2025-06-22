@@ -58,24 +58,12 @@
 
     <!-- Image Grid -->
     <div class="grid gap-4 w-full md:w-4/5">
-      <img src="/images/KarimunJawa.jpg" alt="Karimunjawa View" class="rounded-xl w-full h-64 object-cover">
-      <div class="grid grid-cols-2 gap-4">
-        <img src="/images/KarimunJawa1.webp" alt="Pantai Karimun" class="rounded-xl w-full h-32 object-cover">
-        <img src="/images/KarimunJawa2.jpg" alt="Pulau Karimun" class="rounded-xl w-full h-32 object-cover">
-      </div>
+      <img src="{{ Storage::url($destination->image) }}" alt="{{ $destination->name }}" class="rounded-xl w-full h-64 object-cover">
     </div>
 
     <!-- Title & Info -->
 <div>
-  <h1 class="text-2xl font-bold text-gray-800">Paket Travel Karimunjawa – Surga Tropis di Jawa Tengah</h1>
-  <p class="text-purple-700 text-sm mt-1 flex items-center gap-1">
-    <span>★ 5 (10 reviews)</span>
-    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
-      <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
-      <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
-    </svg>
-    <span>Kepulauan Karimunjawa, Jawa Tengah</span>
-  </p>
+  <h1 class="text-2xl font-bold text-gray-800">{{ $destination->name }}</h1>
 </div>
 
     <!-- Jadwal Perjalanan -->
@@ -92,7 +80,7 @@
       </div>
       <div class="text-sm leading-snug">
         <p class="font-medium text-gray-600">Berangkat</p>
-        <p class="font-semibold text-gray-800">07/11/2025</p>
+        <p class="font-semibold text-gray-800">{{ $destination->date }}</p>
       </div>
     </div>
 
@@ -105,7 +93,7 @@
       </div>
       <div class="text-sm leading-snug">
         <p class="font-medium text-gray-600">Durasi</p>
-        <p class="font-semibold text-gray-800">4 Hari 3 Malam</p>
+        <p class="font-semibold text-gray-800">{{ $destination->duration }}</p>
       </div>
     </div>
 
@@ -118,7 +106,7 @@
       </div>
       <div class="text-sm leading-snug">
         <p class="font-medium text-gray-600">Harga Tiket</p>
-        <p class="font-semibold text-gray-800">Rp4.500.000/orang</p>
+        <p class="font-semibold text-gray-800">Rp{{ $destination->price }}/orang</p>
       </div>
     </div>
   </div>
@@ -127,19 +115,7 @@
     <!-- Deskripsi -->
     <div>
       <h2 class="text-2xl font-semibold mb-2">Deskripsi Paket</h2>
-      <p class="text-sm mb-2 font-medium">Fasilitas:</p>
-      <ul class="list-disc ml-6 text-sm text-gray-700 space-y-1">
-        <li>Penginapan resort tepi pantai dengan kamar ber-AC</li>
-        <li>Makan 3x sehari (termasuk seafood BBQ)</li>
-        <li>Perlengkapan snorkeling & life jacket</li>
-        <li>Transportasi kapal cepat (PP Jepara–Karimunjawa)</li>
-      </ul>
-      <p class="text-sm mt-4 font-medium">Aktivitas:</p>
-      <ul class="list-disc ml-6 text-sm text-gray-700 space-y-1">
-        <li>Island hopping ke Pulau Menjangan Kecil, Cemara, & Geleyang</li>
-        <li>Snorkeling di spot terbaik (Barracuda Point, Gosong Cemara)</li>
-        <li>Trekking ke Bukit Love untuk sunset panorama 360°</li>
-        <li>Kunjungan ke Desa Kemojan (interaksi budaya lokal)</li>
+      <p class="text-sm mb-2 font-medium">{{ $destination->description }}</p>
       </ul>
     </div>
   </div>
@@ -150,7 +126,7 @@
   <!-- Header Harga -->
   <div class="bg-purple-500 px-4 py-4 text-center text-white" style="background-color: rgba(146, 95, 226, 0.7)">
     <h3 class="text-lg font-bold">
-      Rp4.500.000 <span class="text-sm font-normal">(Early Bird)</span>
+      Rp{{ $destination->price }} <span class="text-sm font-normal">(Early Bird)</span>
     </h3>
   </div>
 
@@ -161,7 +137,7 @@
     <div class="grid grid-cols-2 gap-4">
       <div>
         <label class="block mb-1 font-medium">Berangkat</label>
-        <input type="date" value="2025-11-07" class="w-full px-3 py-2 border border-purple-300 rounded-md bg-purple-50 text-purple-700" id="departure-date">
+        <input type="date" value="{{ $destination->date }}" class="w-full px-3 py-2 border border-purple-300 rounded-md bg-purple-50 text-purple-700" id="departure-date">
       </div>
       <div>
         <label class="block mb-1 font-medium">Pulang</label>
@@ -173,7 +149,7 @@
     <div class="flex items-center justify-between">
       <div>
         <p class="font-medium">Tiket Dewasa</p>
-        <p class="text-xs text-purple-500">Rp4.500.000/orang</p>
+        <p class="text-xs text-purple-500">Rp{{ $destination->price }}/orang</p>
       </div>
       <div class="flex items-center space-x-2">
         <button class="w-7 h-7 rounded-full bg-purple-200 text-purple-700 font-bold" onclick="changeCount('adult', -1)">−</button>
@@ -186,7 +162,7 @@
     <div class="flex items-center justify-between">
       <div>
         <p class="font-medium">Tiket Anak <span></p>
-        <p class="text-xs text-purple-500">Rp3.000.000/anak</p>
+        <p class="text-xs text-purple-500">Rp{{ $destination->price * 0.75 }}/anak</p>
       </div>
       <div class="flex items-center space-x-2">
         <button class="w-7 h-7 rounded-full bg-purple-200 text-purple-700 font-bold" onclick="changeCount('child', -1)">−</button>
@@ -200,7 +176,7 @@
   <h4 class="font-semibold mb-3 text-gray-800">Layanan Tambahan</h4>
 
   <label class="flex items-center justify-between mb-3 cursor-pointer text-sm">
-    <span class="text-purple-800">Tour Dokumentasi Profesional</span>
+    <span class="text-purple-800">Profesional Tour Guide</span>
     <div class="flex items-center space-x-3">
       <span class="text-purple-800">Rp1.500.000</span>
       <input type="checkbox" id="tour-check" class="accent-purple-500 w-4 h-4 rounded-full" onchange="calculateTotal()">
@@ -208,7 +184,7 @@
   </label>
 
   <label class="flex items-center justify-between mb-3 cursor-pointer text-sm">
-  <span class="text-purple-800">Kamera Underwater</span>
+  <span class="text-purple-800">Dokumenter</span>
   <div class="flex items-center space-x-3">
     <span class="text-purple-800">Rp200.000</span>
     <input type="checkbox" id="camera-check" class="accent-purple-500 w-4 h-4 rounded-full" onchange="calculateTotal()">
@@ -216,7 +192,7 @@
 </label>
 
   <label class="flex items-center justify-between cursor-pointer text-sm">
-    <span class="text-purple-800">Pemandu Wisata Bahasa</span>
+    <span class="text-purple-800">Translator</span>
     <div class="flex items-center space-x-3">
       <span class="text-purple-800">Rp500.000</span>
       <input type="checkbox" id="guide-check" class="accent-purple-500 w-4 h-4 rounded-full" onchange="calculateTotal()">
@@ -236,66 +212,81 @@
   </div>
 </div>
 
-<script>
-  let adultCount = 0;
-  let childCount = 0;
+ <script>
+    let adultCount = 0;
+    let childCount = 0;
+    const adultPrice = {{ $destination->price }};
+    const childPrice = {{ $destination->price }} * 0.75; // 50% of adult price
+    const cameraPrice = 200000;
+    const tourPrice = 1500000;
+    const guidePrice = 500000;
+    const taxPerPerson = 50000;
 
-  function changeCount(type, delta) {
-    if (type === 'adult') {
-      adultCount = Math.max(0, adultCount + delta);
-      document.getElementById('adult-count').textContent = adultCount;
-    } else {
-      childCount = Math.max(0, childCount + delta);
-      document.getElementById('child-count').textContent = childCount;
-    }
-    calculateTotal();
-  }
-
-  function calculateTotal() {
-    const camera = document.getElementById('camera-check').checked;
-    const tour = document.getElementById('tour-check').checked;
-    const guide = document.getElementById('guide-check').checked;
-
-    const hargaDewasa = 4500000;
-    const hargaAnak = 3000000;
-    const hargaKamera = 200000;
-    const hargaTour = 1500000;
-    const hargaGuide = 500000;
-    const pajakPerOrang = 50000;
-
-    let total = (adultCount * hargaDewasa) + (childCount * hargaAnak);
-    let summaryHTML = '';
-
-    if (adultCount > 0)
-      summaryHTML += `<p>Tiket Dewasa <span class="float-right">Rp ${(hargaDewasa * adultCount).toLocaleString()}</span></p>`;
-    if (childCount > 0)
-      summaryHTML += `<p>Tiket Anak <span class="float-right">Rp ${(hargaAnak * childCount).toLocaleString()}</span></p>`;
-
-    if (camera) {
-  total += hargaKamera;
-  summaryHTML += `<p>Kamera Underwater <span class="float-right">Rp ${hargaKamera.toLocaleString()}</span></p>`;
-  }
-
-    if (tour) {
-      total += hargaTour;
-      summaryHTML += `<p>Tour Dokumentasi <span class="float-right">Rp ${hargaTour.toLocaleString()}</span></p>`;
+    function changeCount(type, delta) {
+      if (type === 'adult') {
+        adultCount = Math.max(0, adultCount + delta);
+        document.getElementById('adult-count').textContent = adultCount;
+      } else {
+        childCount = Math.max(0, childCount + delta);
+        document.getElementById('child-count').textContent = childCount;
+      }
+      calculateTotal();
     }
 
-    if (guide) {
-      total += hargaGuide;
-      summaryHTML += `<p>Pemandu Wisata <span class="float-right">Rp ${hargaGuide.toLocaleString()}</span></p>`;
+    function calculateTotal() {
+      const camera = document.getElementById('camera-check').checked;
+      const tour = document.getElementById('tour-check').checked;
+      const guide = document.getElementById('guide-check').checked;
+
+      let total = (adultCount * adultPrice) + (childCount * childPrice);
+      let summaryHTML = '';
+
+      if (adultCount > 0) {
+        summaryHTML += `<p>Tiket Dewasa (${adultCount}x) <span class="float-right">Rp ${(adultCount * adultPrice).toLocaleString()}</span></p>`;
+      }
+      
+      if (childCount > 0) {
+        summaryHTML += `<p>Tiket Anak (${childCount}x) <span class="float-right">Rp ${(childCount * childPrice).toLocaleString()}</span></p>`;
+      }
+
+      if (camera) {
+        total += cameraPrice;
+        summaryHTML += `<p>Dokumenter <span class="float-right">Rp ${cameraPrice.toLocaleString()}</span></p>`;
+      }
+
+      if (tour) {
+        total += tourPrice;
+        summaryHTML += `<p>Tour Guide <span class="float-right">Rp ${tourPrice.toLocaleString()}</span></p>`;
+      }
+
+      if (guide) {
+        total += guidePrice;
+        summaryHTML += `<p>Translator <span class="float-right">Rp ${guidePrice.toLocaleString()}</span></p>`;
+      }
+
+      const tax = (adultCount + childCount) * taxPerPerson;
+      total += tax;
+      summaryHTML += `<p>Pajak Service (@Rp50.000) <span class="float-right">Rp ${tax.toLocaleString()}</span></p>`;
+
+      document.getElementById('summary').innerHTML = summaryHTML;
+      document.getElementById('total').textContent = total.toLocaleString();
     }
 
-    const pajak = (adultCount + childCount) * pajakPerOrang;
-    total += pajak;
-    summaryHTML += `<p>Pajak Service  (@Rp50.000) <span class="float-right">Rp ${pajak.toLocaleString()}</span></p>`;
+    function calculateAndRedirect() {
+      if (adultCount + childCount === 0) {
+        alert('Silakan pilih minimal 1 tiket');
+        return;
+      }
+      
+      // Here you would typically send the booking data to your backend
+      // For now, we'll just redirect to payment page
+      window.location.href = '/payment?adults=' + adultCount + 
+                            '&children=' + childCount + 
+                            '&total=' + document.getElementById('total').textContent;
+    }
 
-    document.getElementById('summary').innerHTML = summaryHTML;
-    document.getElementById('total').textContent = total.toLocaleString();
-  }
-
-  window.onload = calculateTotal;
-</script>
+    window.onload = calculateTotal;
+  </script>
 </section>
   <!-- Footer -->
   <footer class="text-white mt-12 p-6 text-center font-prompt" style="background-image: url('/images/Footer.jpg'); background-size: cover; background-position: center;">

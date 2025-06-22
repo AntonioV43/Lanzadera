@@ -49,7 +49,7 @@
   <section class="max-w-6xl mx-auto px-4 py-6 grid grid-cols-3 gap-6 font-poppins">
     <!-- Left Section -->
     <div class="col-span-2 space-y-6">
-      <a href="/booking" class="inline-flex items-center px-4 py-2 border border-purple-600 rounded-md text-sm font-medium text-purple-600 hover:bg-purple-50 transition-colors duration-200">
+      <a href="{{ url()->previous() }}" class="inline-flex items-center px-4 py-2 border border-purple-600 rounded-md text-sm font-medium text-purple-600 hover:bg-purple-50 transition-colors duration-200">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
         </svg>

@@ -61,10 +61,10 @@
       <a href="#"><img src="/images/lanzadera.svg" alt="Lanzadera Logo" class="h-24"></a>
     </div>
     <ul class="flex space-x-8 text-white font-medium mx-auto">
-      <li><a href="#" class="hover:underline">Home</a></li>
-      <li><a href="#" class="hover:underline">Categories</a></li>
-      <li><a href="#" class="hover:underline">Favorit</a></li>
-      <li><a href="#" class="hover:underline">Pesanan</a></li>
+      <li><a href="/" class="hover:underline">Home</a></li>
+      <li><a href="/categories" class="hover:underline">Categories</a></li>
+      <li><a href="/favourite" class="hover:underline">Favourite</a></li>
+      <li><a href="/my_order" class="hover:underline">My Order</a></li>
     </ul>
     <!-- Avatar Kecil -->
     <div class="w-10 h-10 rounded-full border-2 border-white shadow absolute right-8 overflow-hidden">

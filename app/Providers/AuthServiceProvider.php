@@ -27,7 +27,7 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
         $user = auth()->user();
-        
+        $permissionArray = [];
         if (! app()->runningInConsole()) {
             $roles = Role::with('permissions')->get();
 

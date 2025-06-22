@@ -52,6 +52,10 @@ Route::middleware(['auth'])->group(function () {
     });
 });
 
+Route::get('/booking/{destination:name}', [\App\Http\Controllers\BookingController::class, 'show'])->name('destination.show');
+
+Route::get('/categories', [App\Http\Controllers\Admin\CategoriesController::class, 'index']);
+
 Auth::routes();
 
 // Rute admin
@@ -62,4 +66,5 @@ Route::group(['middleware' => 'isAdmin','prefix' => 'admin', 'as' => 'admin.'], 
     Route::resource('users', \App\Http\Controllers\Admin\UserController::class);
     Route::get('profile', [\App\Http\Controllers\ProfileController::class, 'show'])->name('profile.show');
     Route::put('profile', [\App\Http\Controllers\ProfileController::class, 'update'])->name('profile.update');
+    Route::resource('destinations', \App\Http\Controllers\Admin\DestinationController::class);
 });
