@@ -25,23 +25,51 @@
 </head>
 <body class="bg-Purple font-sans pt-20">
   <!-- Navbar -->
-  <nav class="fixed top-0 left-0 right-0 z-50 flex flex-col items-center py-4 px-8 font-prompt" style="background-color: rgba(146, 95, 226, 1)">
+  <nav class="fixed top-0 left-0 right-0 z-50 flex flex-col items-center py-4 px-4 lg:px-8 font-prompt" style="background-color: rgba(146, 95, 226, 1)">
     <div class="flex items-center justify-between w-full max-w-6xl">
-      <div class="flex items-center absolute left-8">
+      <!-- Logo -->
+      <div class="flex items-center lg:absolute lg:left-8">
         <a href="/booking">
-          <img src="/images/lanzadera.svg" alt="Lanzadera Logo" class="h-24">
+          <img src="/images/lanzadera.svg" alt="Lanzadera Logo" class="h-12 lg:h-24">
         </a>
       </div>
-      <ul class="flex space-x-8 text-white font-medium mx-auto">
+
+      <!-- Menu (desktop) -->
+      <ul class="hidden lg:flex space-x-8 text-white font-medium mx-auto">
         <li><a href="/" class="hover:underline">Home</a></li>
         <li><a href="/categories" class="hover:underline">Categories</a></li>
         <li><a href="/favourite" class="hover:underline">Favourite</a></li>
         <li><a href="/my_order" class="hover:underline">My Order</a></li>
       </ul>
-      <a href="/profile" class="w-10 h-10 rounded-full border-2 border-white shadow absolute right-8 overflow-hidden">
-        <img src="/images/profile.svg" alt="Profile" class="w-full h-full object-cover rounded-full">
-      </a>
+
+      <!-- Right side -->
+      <div class="flex items-center gap-3 lg:absolute lg:right-8">
+        
+        <a href="/profile" class="block w-10 h-10 shrink-0 rounded-full border-2 border-white shadow overflow-hidden">
+          <img src="/images/profile.svg" alt="Profile" class="w-full h-full object-cover rounded-full">
+        </a>
+        
+        <!-- Hamburger (mobile / tablet) -->
+        <button id="menuBtn" type="button" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobileMenu"
+                class="lg:hidden inline-flex items-center justify-center w-10 h-10 rounded-md text-white bg-black/25 border border-white/60">
+          <svg id="menuIconOpen" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+          <svg id="menuIconClose" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
     </div>
+
+    <!-- Menu (mobile / tablet) -->
+    <ul id="mobileMenu" class="hidden lg:hidden w-full max-w-6xl mt-3 rounded-xl bg-[#925FE2] text-white font-medium p-4 space-y-1 shadow-lg max-h-[calc(100vh-6rem)] overflow-y-auto">
+      <li><a href="/" class="block py-2 hover:underline">Home</a></li>
+        <li><a href="/categories" class="block py-2 hover:underline">Categories</a></li>
+        <li><a href="/favourite" class="block py-2 hover:underline">Favourite</a></li>
+        <li><a href="/my_order" class="block py-2 hover:underline">My Order</a></li>
+      
+    </ul>
   </nav>
 
   <section class="max-w-6xl mx-auto px-4 py-6 grid grid-cols-1 lg:grid-cols-3 gap-6 font-poppins">
@@ -58,7 +86,7 @@
 
     <!-- Image Grid -->
     <div class="grid gap-4 w-full md:w-4/5">
-      <img src="{{ Storage::url($destination->image) }}" alt="{{ $destination->name }}" class="rounded-xl w-full h-64 object-cover">
+      <img src="{{ Storage::url($destination->image) }}" alt="{{ $destination->name }}" class="rounded-xl w-full h-48 sm:h-64 object-cover">
     </div>
 
     <!-- Title & Info -->
@@ -69,7 +97,7 @@
     <!-- Jadwal Perjalanan -->
 <div class="border-t border-b border-300 py-4 max-w-2xl w-full my-6">
   <h2 class="text-2xl font-bold text-gray-800 mb-4">Jadwal Perjalanan</h2>
-  <div class="grid grid-cols-3 gap-0">
+  <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-0">
     <!-- Berangkat -->
     <div class="flex items-start gap-2 px-3">
       <div class="bg-purple-100 p-2 rounded-full shrink-0">
@@ -116,12 +144,11 @@
     <div>
       <h2 class="text-2xl font-semibold mb-2">Deskripsi Paket</h2>
       <p class="text-sm mb-2 font-medium">{{ $destination->description }}</p>
-      </ul>
     </div>
   </div>
 
   <!-- Wrapper -->
-<div class="max-w-sm w-full font-[Poppins] shadow-lg rounded-xl overflow-hidden bg-white text-sm text-gray-800">
+<div class="w-full lg:max-w-sm lg:sticky lg:top-24 lg:self-start font-[Poppins] shadow-lg rounded-xl overflow-hidden bg-white text-sm text-gray-800">
 
   <!-- Header Harga -->
   <div class="bg-purple-500 px-4 py-4 text-center text-white" style="background-color: rgba(146, 95, 226, 0.7)">
@@ -131,10 +158,10 @@
   </div>
 
   <!-- Konten -->
-  <div class="p-6 space-y-5">
+  <div class="p-4 sm:p-6 space-y-5">
 
     <!-- Form Tanggal -->
-    <div class="grid grid-cols-2 gap-4">
+    <div class="grid grid-cols-1 min-[400px]:grid-cols-2 gap-4">
       <div>
         <label class="block mb-1 font-medium">Berangkat</label>
         <input type="date" value="{{ $destination->date }}" class="w-full px-3 py-2 border border-purple-300 rounded-md bg-purple-50 text-purple-700" id="departure-date">
@@ -161,7 +188,7 @@
     <!-- Tiket Anak -->
     <div class="flex items-center justify-between">
       <div>
-        <p class="font-medium">Tiket Anak <span></p>
+        <p class="font-medium">Tiket Anak</p>
         <p class="text-xs text-purple-500">Rp{{ $destination->price * 0.75 }}/anak</p>
       </div>
       <div class="flex items-center space-x-2">
@@ -318,11 +345,27 @@
     </div>
     <p class="text-xs mt-4">&copy; 2025 LANZADERA</p>
   </footer>
-  <script>
-function calculateAndRedirect() {
-    calculateTotal(); // Call your existing function
-    window.location.href = '/payment'; // Redirect to payment page
-}
+  
+<script>
+  // Mobile navigation toggle
+  (function () {
+    var btn = document.getElementById('menuBtn');
+    var menu = document.getElementById('mobileMenu');
+    if (!btn || !menu) return;
+    var iconOpen = document.getElementById('menuIconOpen');
+    var iconClose = document.getElementById('menuIconClose');
+    function setOpen(open) {
+      menu.classList.toggle('hidden', !open);
+      iconOpen.classList.toggle('hidden', open);
+      iconClose.classList.toggle('hidden', !open);
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    }
+    btn.addEventListener('click', function () { setOpen(menu.classList.contains('hidden')); });
+    menu.querySelectorAll('a').forEach(function (a) {
+      a.addEventListener('click', function () { setOpen(false); });
+    });
+    window.addEventListener('resize', function () { if (window.innerWidth >= 1024) setOpen(false); });
+  })();
 </script>
 </body>
 </html>

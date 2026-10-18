@@ -6,64 +6,102 @@
     <title>Lanzadera Travel</title>
     <script src="https://cdn.tailwindcss.com"></script>
   </head>
-  <body class="bg-[#E4D6FF] text-gray-900 font-sans">
+  <body class="bg-[#E4D6FF] text-gray-900 font-sans overflow-x-hidden">
 
     <!-- Hero Section -->
     <div
-      class="relative h-screen bg-cover bg-center"
+      class="relative min-h-screen pb-8 md:pb-0 bg-cover bg-center"
       style="background-image: url('your-hero-image.jpg');"
     >
       <!-- Overlay -->
       <div class="absolute inset-0 bg-[url('/images/gunung.jpg')] bg-cover bg-center"></div>
       <!-- Navbar -->
-      <nav class="fixed top-0 left-0 right-0 z-50 flex flex-col items-center py-4 px-8 font-prompt" style="background-color: rgba(146, 95, 226, 0.07);">
-        <div class="flex items-center justify-between w-full max-w-6xl">
-            <!-- Logo -->
-            <div class="flex items-center absolute left-8">
-                <a href="/">
-                    <img src="/images/lanzadera.svg" alt="Lanzadera Logo" class="h-24">
-                </a>
-            </div>
+      <nav class="fixed top-0 left-0 right-0 z-50 flex flex-col items-center py-4 px-4 lg:px-8 font-prompt" style="background-color: rgba(146, 95, 226, 0.07)">
+    <div class="flex items-center justify-between w-full max-w-6xl">
+      <!-- Logo -->
+      <div class="flex items-center lg:absolute lg:left-8">
+        <a href="/">
+          <img src="/images/lanzadera.svg" alt="Lanzadera Logo" class="h-12 lg:h-24">
+        </a>
+      </div>
 
-            <!-- Menu -->
-            <!-- Menu -->
-            <ul class="flex space-x-8 text-black font-medium mx-auto">
-                <li><a href="/" class="hover:underline">Home</a></li>
-                @auth
-                    <li><a href="/categories" class="hover:underline">Categories</a></li>
-                    <li><a href="/favourite" class="hover:underline">Favourite</a></li>
-                    <li><a href="/my_order" class="hover:underline">My Order</a></li>
-                @else
-                    <li><a href="{{ route('login') }}" class="hover:underline">Categories</a></li>
-                    <li><a href="{{ route('login') }}" class="hover:underline">Favourite</a></li>
-                    <li><a href="{{ route('login') }}" class="hover:underline">My Order</a></li>
-                @endauth
-            </ul>
+      <!-- Menu (desktop) -->
+      <ul class="hidden lg:flex space-x-8 text-black font-medium mx-auto">
+        <li><a href="/" class="hover:underline">Home</a></li>
+        @auth
+            <li><a href="/categories" class="hover:underline">Categories</a></li>
+            <li><a href="/favourite" class="hover:underline">Favourite</a></li>
+            <li><a href="/my_order" class="hover:underline">My Order</a></li>
+        @else
+            <li><a href="{{ route('login') }}" class="hover:underline">Categories</a></li>
+            <li><a href="{{ route('login') }}" class="hover:underline">Favourite</a></li>
+            <li><a href="{{ route('login') }}" class="hover:underline">My Order</a></li>
+        @endauth
+      </ul>
 
-            <!-- Auth -->
-            <div class="flex items-center space-x-4 absolute right-8">
-                @auth
-                <a onclick="return document.getElementById('logout').submit();" href="#" class="px-4 py-2 text-white hover:underline">Logout</a>
-                    <a href="/profile" class="w-10 h-10 rounded-full border-2 border-white shadow">
-                    <img src="/images/profile.svg" alt="Profile" class="w-full h-full object-cover rounded-full"></a>
-                    <form id="logout" action="{{route('logout') }}" method="post">
-                  @csrf
-                    </form>
-                  @else
-                <!-- Logout Button -->
-                    <a href="{{ route('register') }}" class="px-4 py-2 text-black hover:underline border border-white">Register</a>
-                  @if (Route::has('register'))           
-                <!-- Profile Picture -->
-                    <a href="{{ route('login') }}" class="px-4 py-2 text-white hover:underline">Login</a>
-                  @endif
-                @endauth
-            </div>
+      <!-- Right side -->
+      <div class="flex items-center gap-3 lg:absolute lg:right-8">
+        <div class="hidden lg:flex items-center space-x-4">
+          @auth
+            <a onclick="return document.getElementById('logout').submit();" href="#" class="px-4 py-2 text-white hover:underline">Logout</a>
+          @else
+            <a href="{{ route('register') }}" class="px-4 py-2 text-black hover:underline border border-white">Register</a>
+            @if (Route::has('register'))
+              <a href="{{ route('login') }}" class="px-4 py-2 text-white hover:underline">Login</a>
+            @endif
+          @endauth
         </div>
-      </nav>
+        @auth
+          <a href="/profile" class="block w-10 h-10 shrink-0 rounded-full border-2 border-white shadow overflow-hidden">
+            <img src="/images/profile.svg" alt="Profile" class="w-full h-full object-cover rounded-full">
+          </a>
+        @endauth
+        @auth
+          <form id="logout" action="{{ route('logout') }}" method="post" class="hidden">
+            @csrf
+          </form>
+        @endauth
+        <!-- Hamburger (mobile / tablet) -->
+        <button id="menuBtn" type="button" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobileMenu"
+                class="lg:hidden inline-flex items-center justify-center w-10 h-10 rounded-md text-white bg-black/25 border border-white/60">
+          <svg id="menuIconOpen" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+          <svg id="menuIconClose" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Menu (mobile / tablet) -->
+    <ul id="mobileMenu" class="hidden lg:hidden w-full max-w-6xl mt-3 rounded-xl bg-[#925FE2] text-white font-medium p-4 space-y-1 shadow-lg max-h-[calc(100vh-6rem)] overflow-y-auto">
+      <li><a href="/" class="block py-2 hover:underline">Home</a></li>
+        @auth
+            <li><a href="/categories" class="block py-2 hover:underline">Categories</a></li>
+            <li><a href="/favourite" class="block py-2 hover:underline">Favourite</a></li>
+            <li><a href="/my_order" class="block py-2 hover:underline">My Order</a></li>
+        @else
+            <li><a href="{{ route('login') }}" class="block py-2 hover:underline">Categories</a></li>
+            <li><a href="{{ route('login') }}" class="block py-2 hover:underline">Favourite</a></li>
+            <li><a href="{{ route('login') }}" class="block py-2 hover:underline">My Order</a></li>
+        @endauth
+      <li class="border-t border-white/30 mt-2 pt-2">
+        @auth
+          <a onclick="return document.getElementById('logout').submit();" href="#" class="block py-2 hover:underline">Logout</a>
+        @else
+          <a href="{{ route('register') }}" class="block py-2 hover:underline">Register</a>
+          @if (Route::has('register'))
+            <a href="{{ route('login') }}" class="block py-2 hover:underline">Login</a>
+          @endif
+        @endauth
+      </li>
+    </ul>
+  </nav>
 
       <!-- Headline -->
-      <div class="relative z-10 flex flex-col items-center justify-center text-center h-[calc(100vh-120px)]">
-        <h1 class="text-4xl md:text-6xl font-bold leading-tight text-white">
+      <div class="relative z-10 flex flex-col items-center justify-center text-center px-4 pt-28 pb-10 min-h-[55vh] md:pt-0 md:pb-0 md:h-[calc(100vh-120px)]">
+        <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold leading-tight text-white">
           Let's Make Your <br />
           <span class="text-purple-200">Dream Vacation</span>
         </h1>
@@ -71,35 +109,35 @@
 
       <!-- Search Bar -->
 <div class="relative z-10 flex justify-center px-4">
-  <div class="bg-white text-gray-900 p-6 rounded-full flex flex-wrap items-center gap-6 shadow-lg w-full max-w-5xl">
+  <div class="bg-white text-gray-900 p-4 md:p-6 rounded-3xl lg:rounded-full flex flex-col lg:flex-row lg:items-center gap-4 lg:gap-6 shadow-lg w-full max-w-5xl">
     <!-- Location Section -->
-    <div class="flex items-center space-x-3 px-4 border-r border-gray-200">
+    <div class="flex items-center space-x-3 px-2 lg:px-4 pb-3 lg:pb-0 border-b lg:border-b-0 lg:border-r border-gray-200">
       <svg class="w-5 h-5 text-purple-600 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 12.414M15 11a4 4 0 11-8 0 4 4 0 018 0z"></path>
       </svg>
-      <div class="min-w-[180px]">
+      <div class="flex-1 lg:flex-none lg:min-w-[180px]">
         <p class="text-sm font-semibold">Location</p>
         <input type="text" placeholder="Where to go?" class="w-full text-sm bg-transparent focus:outline-none placeholder-gray-400" />
       </div>
     </div>
 
     <!-- Date Section -->
-    <div class="flex items-center space-x-3 px-4 border-r border-gray-200">
+    <div class="flex items-center space-x-3 px-2 lg:px-4 pb-3 lg:pb-0 border-b lg:border-b-0 lg:border-r border-gray-200">
       <svg class="w-5 h-5 text-purple-600 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3M3 11h18M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
       </svg>
-      <div class="min-w-[150px]">
+      <div class="flex-1 lg:flex-none lg:min-w-[150px]">
         <p class="text-sm font-semibold">Date</p>
         <input type="date" class="w-full text-sm bg-transparent focus:outline-none" />
       </div>
     </div>
 
     <!-- Pricing Section -->
-    <div class="flex items-center space-x-3 px-4">
+    <div class="flex items-center space-x-3 px-2 lg:px-4">
       <svg class="w-5 h-5 text-purple-600 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2M4 6h16M4 10h16M4 14h16M4 18h16"></path>
       </svg>
-      <div class="min-w-[180px]">
+      <div class="flex-1 lg:flex-none lg:min-w-[180px]">
         <p class="text-sm font-semibold">Pricing</p>
         <select class="w-full text-sm bg-transparent focus:outline-none">
           <option>Choose your budget</option>
@@ -112,11 +150,11 @@
 
     <!-- Search Button -->
     @auth
-      <a href="/categories" class="ml-auto bg-purple-600 text-white px-6 py-3 rounded-full font-bold hover:bg-purple-700 transition whitespace-nowrap">
+      <a href="/categories" class="lg:ml-auto w-full lg:w-auto text-center bg-purple-600 text-white px-6 py-3 rounded-full font-bold hover:bg-purple-700 transition whitespace-nowrap">
         🔍 Explore Now
       </a>
     @else
-      <a href="{{ route('login') }}" class="ml-auto bg-purple-600 text-white px-6 py-3 rounded-full font-bold hover:bg-purple-700 transition whitespace-nowrap">
+      <a href="{{ route('login') }}" class="lg:ml-auto w-full lg:w-auto text-center bg-purple-600 text-white px-6 py-3 rounded-full font-bold hover:bg-purple-700 transition whitespace-nowrap">
         🔍 Login to Explore
     </a>
     @endauth
@@ -152,7 +190,7 @@
   <div class="relative rounded-lg overflow-hidden">
     <!-- Video Thumbnail (shown by default) -->
     <div id="videoThumbnail" class="cursor-pointer">
-      <img src="/images/banff.jpg" alt="Video Thumbnail" class="rounded-lg w-full object-cover h-[400px]">
+      <img src="/images/banff.jpg" alt="Video Thumbnail" class="rounded-lg w-full object-cover h-60 sm:h-80 md:h-[400px]">
       <!-- Play Button -->
       <div class="absolute inset-0 flex items-center justify-center">
         <div class="bg-white bg-opacity-60 p-4 rounded-full hover:bg-opacity-80 transition">
@@ -164,7 +202,7 @@
     </div>
 
     <!-- Video Container (hidden by default) -->
-    <div id="videoContainer" class="hidden relative w-full h-[400px] bg-black">
+    <div id="videoContainer" class="hidden relative w-full h-60 sm:h-80 md:h-[400px] bg-black">
       <iframe id="videoPlayer" class="w-full h-full" src="" frameborder="0" 
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
         allowfullscreen></iframe>
@@ -177,7 +215,7 @@
   </div>
 
   <!-- Description Card - Now positioned below the video -->
-  <div class="bg-white p-6 flex flex-col md:flex-row justify-between items-center rounded-b-lg mt-4">
+  <div class="bg-white p-6 flex flex-col md:flex-row justify-between items-center gap-4 text-center md:text-left rounded-b-lg mt-4">
     <div class="mb-4 md:mb-0">
       <h2 class="text-xl font-bold">Take The Best Place</h2>
       <p class="text-sm mt-1 text-gray-700 max-w-xl">
@@ -197,12 +235,12 @@
 <!-- Popular Destinations Section -->
 <div class="w-full min-h-screen bg-[#E4D6FF] py-16 px-4">
   <div class="max-w-7xl mx-auto">
-    <h2 class="text-4xl font-bold text-center text-gray-800 mb-12">Popular Destinations</h2>
+    <h2 class="text-3xl md:text-4xl font-bold text-center text-gray-800 mb-8 md:mb-12">Popular Destinations</h2>
     
     <!-- Grid Layout -->
     <div class="grid grid-cols-1 md:grid-cols-12 gap-6 h-full">
       <!-- Featured Big Card (Left) -->
-      <div class="md:col-span-8 row-span-2 relative rounded-2xl overflow-hidden group">
+      <div class="md:col-span-8 row-span-2 relative rounded-2xl overflow-hidden group h-72 md:h-auto">
         <img src="/images/RajaAmpat.png" alt="Raja Ampat" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
         <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex flex-col justify-end p-8">
           <h3 class="text-3xl font-bold text-white">Raja Ampat</h3>
@@ -282,15 +320,15 @@
 <div class="min-h-screen bg-[#E4D6FF] py-20 px-4">
   <div class="max-w-7xl mx-auto">
     <!-- Section Header -->
-    <div class="text-center mb-16">
-      <h2 class="text-4xl font-bold text-gray-800 mb-4">Popular Destinations</h2>
+    <div class="text-center mb-10 md:mb-16">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Popular Destinations</h2>
       <p class="text-lg text-gray-600 max-w-2xl mx-auto">Discover the world's most breathtaking places to visit</p>
     </div>
 
     <!-- Destination Cards -->
     <div class="flex justify-center items-stretch gap-8 flex-wrap">
       <!-- Card: Greece -->
-      <div class="bg-white rounded-2xl w-80 overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 flex flex-col">
+      <div class="bg-white rounded-2xl w-full max-w-sm sm:w-80 overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 flex flex-col">
         <div class="h-60 overflow-hidden">
           <img src="/images/nusapenida.jpg" alt="indonesia" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
         </div>
@@ -316,7 +354,7 @@
             </div>
           </div>
           
-          <div class="mt-6 pt-4 border-t border-gray-100 flex justify-between items-center">
+          <div class="mt-6 pt-4 border-t border-gray-100 flex flex-wrap justify-between items-center gap-3">
             <div>
               <p class="text-sm text-gray-500">Starting from</p>
               <p class="text-xl font-bold text-purple-600">Rp 8.000.000</p>
@@ -329,7 +367,7 @@
       </div>
 
       <!-- Featured Card: Indonesia -->
-      <div class="bg-white rounded-2xl w-88 overflow-hidden shadow-2xl hover:shadow-3xl transition-all duration-300 flex flex-col transform scale-105 z-10">
+      <div class="bg-white rounded-2xl w-full max-w-sm sm:w-[22rem] overflow-hidden shadow-2xl transition-all duration-300 flex flex-col transform md:scale-105 z-10">
         <div class="h-64 overflow-hidden relative">
           <img src="/images/karsort.jpg" alt="Karimunjawa" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
           <div class="absolute top-4 right-4 bg-yellow-400 text-white px-3 py-1 rounded-full text-sm font-bold">BEST SELLER</div>
@@ -354,7 +392,7 @@
             </div>
           </div>
           
-          <div class="mt-8 pt-5 border-t border-gray-100 flex justify-between items-center">
+          <div class="mt-8 pt-5 border-t border-gray-100 flex flex-wrap justify-between items-center gap-4">
             <div>
               <p class="text-sm text-gray-500">Special offer</p>
               <p class="text-2xl font-bold text-purple-600">Rp 4.500.000</p>
@@ -370,7 +408,7 @@
       </div>
 
       <!-- Card: Maldives -->
-      <div class="bg-white rounded-2xl w-80 overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 flex flex-col">
+      <div class="bg-white rounded-2xl w-full max-w-sm sm:w-80 overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 flex flex-col">
         <div class="h-60 overflow-hidden">
           <img src="/images/bromo.webp" alt="Bromo" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
         </div>
@@ -393,7 +431,7 @@
             </div>
           </div>
           
-          <div class="mt-6 pt-4 border-t border-gray-100 flex justify-between items-center">
+          <div class="mt-6 pt-4 border-t border-gray-100 flex flex-wrap justify-between items-center gap-3">
             <div>
               <p class="text-sm text-gray-500">All inclusive</p>
               <p class="text-xl font-bold text-purple-600">Rp 6.000.000</p>
@@ -407,7 +445,7 @@
     </div>
 
     <!-- View All Button -->
-    <div class="text-center mt-20">
+    <div class="text-center mt-12 md:mt-20">
       @auth
     <a href="/categories" class="bg-white text-purple-600 px-8 py-3 rounded-full font-bold hover:bg-gray-100 transition border-2 border-purple-600">
         View All Destinations
@@ -421,7 +459,7 @@
   </div>
 
 <section class="max-w-6xl mx-auto px-4 py-20">
-  <div class="text-center mb-16">
+  <div class="text-center mb-10 md:mb-16">
     <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Frequently Asked Questions</h2>
     <p class="text-lg text-gray-600 max-w-2xl mx-auto">Find answers to common questions about our cabins and services</p>
   </div>
@@ -577,11 +615,11 @@ document.addEventListener('DOMContentLoaded', function() {
   <!-- Animated overlay gradient -->
   <div class="absolute inset-0 bg-gradient-to-br from-black/70 via-purple-900/30 to-black/70"></div>
   
-  <div class="relative z-10 max-w-5xl mx-auto py-24 px-4 sm:px-6 lg:px-8 text-center">
+  <div class="relative z-10 max-w-5xl mx-auto py-16 md:py-24 px-4 sm:px-6 lg:px-8 text-center">
     <!-- Text content with animation -->
     <div class="space-y-4 animate-fade-in">
       <p class="text-xl md:text-2xl font-light text-purple-200">We will see you</p>
-      <h2 class="text-4xl md:text-5xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-white to-purple-200">
+      <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-white to-purple-200">
         Enjoy 30% Off On First Trip
       </h2>
       <p class="text-lg text-purple-100 max-w-2xl mx-auto mt-4">
@@ -675,33 +713,27 @@ document.addEventListener('DOMContentLoaded', function() {
     50% { transform: translateY(-20px); }
   }
 </style>
-</style>
 
-  </body>
-
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    const videoThumbnail = document.getElementById('videoThumbnail');
-    const videoContainer = document.getElementById('videoContainer');
-    const videoPlayer = document.getElementById('videoPlayer');
-    const closeVideo = document.getElementById('closeVideo');
-
-    // Replace with your video URL (YouTube, Vimeo, etc.)
-    const videoUrl = "/images/video.mp4";
-
-    videoThumbnail.addEventListener('click', function() {
-      videoThumbnail.classList.add('hidden');
-      videoContainer.classList.remove('hidden');
-      videoPlayer.src = videoUrl;
+  <script>
+  // Mobile navigation toggle
+  (function () {
+    var btn = document.getElementById('menuBtn');
+    var menu = document.getElementById('mobileMenu');
+    if (!btn || !menu) return;
+    var iconOpen = document.getElementById('menuIconOpen');
+    var iconClose = document.getElementById('menuIconClose');
+    function setOpen(open) {
+      menu.classList.toggle('hidden', !open);
+      iconOpen.classList.toggle('hidden', open);
+      iconClose.classList.toggle('hidden', !open);
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    }
+    btn.addEventListener('click', function () { setOpen(menu.classList.contains('hidden')); });
+    menu.querySelectorAll('a').forEach(function (a) {
+      a.addEventListener('click', function () { setOpen(false); });
     });
-
-    closeVideo.addEventListener('click', function(e) {
-      e.stopPropagation();
-      videoContainer.classList.add('hidden');
-      videoThumbnail.classList.remove('hidden');
-      videoPlayer.src = "";
-    });
-  });
+    window.addEventListener('resize', function () { if (window.innerWidth >= 1024) setOpen(false); });
+  })();
 </script>
-
+</body>
 </html>

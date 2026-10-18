@@ -25,27 +25,55 @@
 </head>
 <body class="bg-Purple font-sans pt-20">
   <!-- Navbar Fixed -->
-  <nav class="fixed top-0 left-0 right-0 z-50 flex flex-col items-center py-4 px-8 font-prompt" style="background-color: rgba(146, 95, 226, 1)">
+  <nav class="fixed top-0 left-0 right-0 z-50 flex flex-col items-center py-4 px-4 lg:px-8 font-prompt" style="background-color: rgba(146, 95, 226, 1)">
     <div class="flex items-center justify-between w-full max-w-6xl">
-      <div class="flex items-center absolute left-8">
+      <!-- Logo -->
+      <div class="flex items-center lg:absolute lg:left-8">
         <a href="#">
-          <img src="/images/lanzadera.svg" alt="Lanzadera Logo" class="h-24">
+          <img src="/images/lanzadera.svg" alt="Lanzadera Logo" class="h-12 lg:h-24">
         </a>
       </div>
-      <ul class="flex space-x-8 text-white font-medium mx-auto">
+
+      <!-- Menu (desktop) -->
+      <ul class="hidden lg:flex space-x-8 text-white font-medium mx-auto">
         <li><a href="#" class="hover:underline">Home</a></li>
         <li><a href="#" class="hover:underline">Categories</a></li>
         <li><a href="#" class="hover:underline">Favorit</a></li>
         <li><a href="#" class="hover:underline">Pesanan</a></li>
       </ul>
-      <div class="w-10 h-10 rounded-full border-2 border-white shadow absolute right-8 overflow-hidden">
-        <img src="/images/profile.svg" alt="Profile" class="w-full h-full object-cover rounded-full">
+
+      <!-- Right side -->
+      <div class="flex items-center gap-3 lg:absolute lg:right-8">
+        
+        <div class="w-10 h-10 shrink-0 rounded-full border-2 border-white shadow overflow-hidden">
+          <img src="/images/profile.svg" alt="Profile" class="w-full h-full object-cover rounded-full">
+        </div>
+        
+        <!-- Hamburger (mobile / tablet) -->
+        <button id="menuBtn" type="button" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobileMenu"
+                class="lg:hidden inline-flex items-center justify-center w-10 h-10 rounded-md text-white bg-black/25 border border-white/60">
+          <svg id="menuIconOpen" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+          <svg id="menuIconClose" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
       </div>
     </div>
+
+    <!-- Menu (mobile / tablet) -->
+    <ul id="mobileMenu" class="hidden lg:hidden w-full max-w-6xl mt-3 rounded-xl bg-[#925FE2] text-white font-medium p-4 space-y-1 shadow-lg max-h-[calc(100vh-6rem)] overflow-y-auto">
+      <li><a href="#" class="block py-2 hover:underline">Home</a></li>
+        <li><a href="#" class="block py-2 hover:underline">Categories</a></li>
+        <li><a href="#" class="block py-2 hover:underline">Favorit</a></li>
+        <li><a href="#" class="block py-2 hover:underline">Pesanan</a></li>
+      
+    </ul>
   </nav>
 
 <!-- Hero Section -->
-<section class="relative h-[480px] w-full bg-cover bg-center" style="background-image: url('/images/gunung.jpg'); margin-top: -80px;">
+<section class="relative h-[400px] md:h-[480px] w-full bg-cover bg-center" style="background-image: url('/images/gunung.jpg'); margin-top: -80px;">
   <!-- Overlay dengan teks -->
   <div class="absolute inset-0 bg-black bg-opacity-40 flex flex-col justify-center items-center text-center text-white font-prompt px-4">
     <h1 class="text-4xl sm:text-5xl font-semibold leading-tight mb-4">
@@ -56,7 +84,7 @@
 
 <!-- Floating Form -->
 <div class="relative z-10 -mt-12 flex justify-center">
-  <div class="bg-white shadow-lg rounded-full px-6 py-4 flex flex-wrap justify-center items-center gap-4 w-[90%] max-w-5xl">
+  <div class="bg-white shadow-lg rounded-3xl md:rounded-full px-4 sm:px-6 py-4 flex flex-col md:flex-row md:flex-wrap justify-center items-stretch md:items-center gap-3 md:gap-4 w-[92%] md:w-[90%] max-w-5xl">
     <!-- Location Input with Icon -->
     <div class="relative">
       <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -65,7 +93,7 @@
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
         </svg>
       </div>
-      <input type="text" placeholder="Where do you want to go?" class="pl-10 pr-4 py-2 rounded-full border border-gray-300 w-64 text-sm text-gray-700" />
+      <input type="text" placeholder="Where do you want to go?" class="pl-10 pr-4 py-2 rounded-full border border-gray-300 w-full md:w-64 text-sm text-gray-700" />
     </div>
     
     <!-- Date Input with Icon -->
@@ -75,7 +103,7 @@
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
         </svg>
       </div>
-      <input type="date" class="pl-10 pr-4 py-2 rounded-full border border-gray-300 w-40 text-sm text-gray-700" />
+      <input type="date" class="pl-10 pr-4 py-2 rounded-full border border-gray-300 w-full md:w-40 text-sm text-gray-700" />
     </div>
     
     <!-- Budget Input with Icon -->
@@ -88,12 +116,12 @@
   <input 
     type="text" 
     placeholder="Type your budget" 
-    class="pl-10 pr-4 py-2 rounded-full border border-gray-300 w-40 text-sm text-gray-700 placeholder-gray-400" 
+    class="pl-10 pr-4 py-2 rounded-full border border-gray-300 w-full md:w-40 text-sm text-gray-700 placeholder-gray-400" 
   />
 </div>
     
     <!-- Search Button with Icon -->
-    <button class="bg-purple-500 text-white px-6 py-2 rounded-full font-semibold hover:bg-purple-600 text-sm flex items-center gap-2">
+    <button class="bg-purple-500 text-white px-6 py-2 rounded-full font-semibold hover:bg-purple-600 text-sm flex items-center justify-center gap-2 w-full md:w-auto">
       <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
       </svg>
@@ -104,19 +132,19 @@
 
 
 <!-- Main Content Section -->
-<section class="max-w-7xl mx-auto px-6 py-12 font-prompt">
+<section class="max-w-7xl mx-auto px-4 sm:px-6 py-8 md:py-12 font-prompt">
 
   <!-- Main Listings -->
 <main class="w-full max-w-5xl mx-auto space-y-6">
   <!-- Card 1 -->
   <div class="bg-white rounded-xl p-4 flex flex-col sm:flex-row shadow-md">
-    <img src="/images/KarimunJawa.jpg" alt="Karimunjawa" class="w-full h-60 object-cover rounded-lg">
-    <div class="sm:ml-6 mt-4 sm:mt-0 flex flex-col justify-between w-full">
+    <img src="/images/KarimunJawa.jpg" alt="Karimunjawa" class="w-full h-48 sm:w-60 md:w-72 sm:h-auto sm:min-h-[15rem] shrink-0 object-cover rounded-lg">
+    <div class="sm:ml-6 mt-4 sm:mt-0 flex flex-col justify-between w-full min-w-0">
       <div>
         <h2 class="text-xl font-semibold">Paket Travel Karimunjawa – Surga Tropis di Jawa Tengah</h2>
         <p class="text-sm text-gray-700 mt-1">"Maladewa-nya Jawa" dengan pantai pasir putih & snorkeling memukau.</p>
       </div>
-      <div class="flex items-center text-sm mt-4 text-gray-600 space-x-4">
+      <div class="flex flex-wrap items-center text-sm mt-4 text-gray-600 gap-x-4 gap-y-1">
         <span class="flex items-center">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
@@ -130,7 +158,7 @@
           4 Hari 3 Malam
         </span>
       </div>
-      <div class="flex justify-between items-center mt-4">
+      <div class="flex flex-wrap justify-between items-center gap-3 mt-4">
         <span class="font-semibold text-purple-600">Rp4.500.000/orang</span>
         <button class="bg-purple-500 text-white px-4 py-2 rounded-lg hover:bg-purple-600">
           Book Ticket
@@ -141,13 +169,13 @@
 
   <!-- Card 2 -->
   <div class="bg-white rounded-xl p-4 flex flex-col sm:flex-row shadow-md">
-    <img src="/images/RajaAmpat.png" alt="Raja Ampat" class="w-full h-60 object-cover rounded-lg">
-    <div class="sm:ml-6 mt-4 sm:mt-0 flex flex-col justify-between w-full">
+    <img src="/images/RajaAmpat.png" alt="Raja Ampat" class="w-full h-48 sm:w-60 md:w-72 sm:h-auto sm:min-h-[15rem] shrink-0 object-cover rounded-lg">
+    <div class="sm:ml-6 mt-4 sm:mt-0 flex flex-col justify-between w-full min-w-0">
       <div>
         <h2 class="text-xl font-semibold">Eksplor Raja Ampat – Surga Bawah Laut</h2>
         <p class="text-sm text-gray-700 mt-1">Nikmati keindahan gugusan pulau eksotis dengan pasir putih, air jernih, dan kekayaan terumbu karang terbaik di dunia.</p>
       </div>
-      <div class="flex items-center text-sm mt-4 text-gray-600 space-x-4">
+      <div class="flex flex-wrap items-center text-sm mt-4 text-gray-600 gap-x-4 gap-y-1">
         <span class="flex items-center">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
@@ -161,7 +189,7 @@
           7 Hari 
         </span>
       </div>
-      <div class="flex justify-between items-center mt-4">
+      <div class="flex flex-wrap justify-between items-center gap-3 mt-4">
         <span class="font-semibold text-purple-600">Rp16.000.000/orang</span>
         <button class="bg-purple-500 text-white px-4 py-2 rounded-lg hover:bg-purple-600">
           Book Ticket
@@ -172,13 +200,13 @@
 
   <!-- Card 3 -->
   <div class="bg-white rounded-xl p-4 flex flex-col sm:flex-row shadow-md">
-    <img src="/images/NusaPenida1.jpeg" alt="Raja Ampat" class="w-full h-60 object-cover rounded-lg">
-    <div class="sm:ml-6 mt-4 sm:mt-0 flex flex-col justify-between w-full">
+    <img src="/images/NusaPenida1.jpeg" alt="Raja Ampat" class="w-full h-48 sm:w-60 md:w-72 sm:h-auto sm:min-h-[15rem] shrink-0 object-cover rounded-lg">
+    <div class="sm:ml-6 mt-4 sm:mt-0 flex flex-col justify-between w-full min-w-0">
       <div>
         <h2 class="text-xl font-semibold">Liburan Seru Bali – Ubud & Nusa Penida</h2>
         <p class="text-sm text-gray-700 mt-1">Wisata budaya di Ubud (Tegallalang, Monkey Forest) & petualangan Nusa Penida.</p>
       </div>
-      <div class="flex items-center text-sm mt-4 text-gray-600 space-x-4">
+      <div class="flex flex-wrap items-center text-sm mt-4 text-gray-600 gap-x-4 gap-y-1">
         <span class="flex items-center">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
@@ -192,7 +220,7 @@
           5 Hari 4 Malam 
         </span>
       </div>
-      <div class="flex justify-between items-center mt-4">
+      <div class="flex flex-wrap justify-between items-center gap-3 mt-4">
         <span class="font-semibold text-purple-600">Rp6.000.000/orang</span>
         <button class="bg-purple-500 text-white px-4 py-2 rounded-lg hover:bg-purple-600">
           Book Ticket
@@ -203,13 +231,13 @@
 
   <!-- Card 4 -->
   <div class="bg-white rounded-xl p-4 flex flex-col sm:flex-row shadow-md">
-    <img src="/images/Dieng.jpg" alt="Raja Ampat" class="w-full h-60 object-cover rounded-lg">
-    <div class="sm:ml-6 mt-4 sm:mt-0 flex flex-col justify-between w-full">
+    <img src="/images/Dieng.jpg" alt="Raja Ampat" class="w-full h-48 sm:w-60 md:w-72 sm:h-auto sm:min-h-[15rem] shrink-0 object-cover rounded-lg">
+    <div class="sm:ml-6 mt-4 sm:mt-0 flex flex-col justify-between w-full min-w-0">
       <div>
         <h2 class="text-xl font-semibold">Eksplor Dieng – Negeri di Atas Awan</h2>
         <p class="text-sm text-gray-700 mt-1">Nikmati keindahan negeri yang diselimuti awan, Dieng, tempat yang sejuk, damai, dan menyenangkan.</p>
       </div>
-      <div class="flex items-center text-sm mt-4 text-gray-600 space-x-4">
+      <div class="flex flex-wrap items-center text-sm mt-4 text-gray-600 gap-x-4 gap-y-1">
         <span class="flex items-center">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
@@ -223,7 +251,7 @@
           3 Hari 2 Malam
         </span>
       </div>
-      <div class="flex justify-between items-center mt-4">
+      <div class="flex flex-wrap justify-between items-center gap-3 mt-4">
         <span class="font-semibold text-purple-600">Rp1.500.000/orang</span>
         <button class="bg-purple-500 text-white px-4 py-2 rounded-lg hover:bg-purple-600">
           Book Ticket
@@ -234,13 +262,13 @@
 
   <!-- Card 5 -->
   <div class="bg-white rounded-xl p-4 flex flex-col sm:flex-row shadow-md">
-    <img src="/images/PulauLabengki.jpg" alt="Raja Ampat" class="w-full h-60 object-cover rounded-lg">
-    <div class="sm:ml-6 mt-4 sm:mt-0 flex flex-col justify-between w-full">
+    <img src="/images/PulauLabengki.jpg" alt="Raja Ampat" class="w-full h-48 sm:w-60 md:w-72 sm:h-auto sm:min-h-[15rem] shrink-0 object-cover rounded-lg">
+    <div class="sm:ml-6 mt-4 sm:mt-0 flex flex-col justify-between w-full min-w-0">
       <div>
         <h2 class="text-xl font-semibold">Eksplor Surga Tersembunyi – Pulau Labengki</h2>
         <p class="text-sm text-gray-700 mt-1">Sensasikan keindahan laut biru jernih, pantai berpasir putih, dan alam bawah laut yang memukau di Sulawesi Tenggara.</p>
       </div>
-      <div class="flex items-center text-sm mt-4 text-gray-600 space-x-4">
+      <div class="flex flex-wrap items-center text-sm mt-4 text-gray-600 gap-x-4 gap-y-1">
         <span class="flex items-center">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
@@ -254,7 +282,7 @@
           5 Hari 4 Malam
         </span>
       </div>
-      <div class="flex justify-between items-center mt-4">
+      <div class="flex flex-wrap justify-between items-center gap-3 mt-4">
         <span class="font-semibold text-purple-600">Rp10.000.000/orang</span>
         <button class="bg-purple-500 text-white px-4 py-2 rounded-lg hover:bg-purple-600">
           Book Ticket
@@ -265,13 +293,13 @@
 
   <!-- Card 6 -->
   <div class="bg-white rounded-xl p-4 flex flex-col sm:flex-row shadow-md">
-    <img src="/images/PulauKomodo.jpg" alt="Raja Ampat" class="w-full h-60 object-cover rounded-lg">
-    <div class="sm:ml-6 mt-4 sm:mt-0 flex flex-col justify-between w-full">
+    <img src="/images/PulauKomodo.jpg" alt="Raja Ampat" class="w-full h-48 sm:w-60 md:w-72 sm:h-auto sm:min-h-[15rem] shrink-0 object-cover rounded-lg">
+    <div class="sm:ml-6 mt-4 sm:mt-0 flex flex-col justify-between w-full min-w-0">
       <div>
         <h2 class="text-xl font-semibold">Petualangan Eksotis Flores – Komodo dan Pulau Padar</h2>
         <p class="text-sm text-gray-700 mt-1">Jelajahi Taman Nasional Komodo, temui hewan purba Komodo, dan saksikan sunset spektakuler di Pulau Padar</p>
       </div>
-      <div class="flex items-center text-sm mt-4 text-gray-600 space-x-4">
+      <div class="flex flex-wrap items-center text-sm mt-4 text-gray-600 gap-x-4 gap-y-1">
         <span class="flex items-center">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
@@ -285,7 +313,7 @@
           4 Hari 
         </span>
       </div>
-      <div class="flex justify-between items-center mt-4">
+      <div class="flex flex-wrap justify-between items-center gap-3 mt-4">
         <span class="font-semibold text-purple-600">Rp8.000.000/orang</span>
         <button class="bg-purple-500 text-white px-4 py-2 rounded-lg hover:bg-purple-600">
           Book Ticket
@@ -326,5 +354,26 @@
     </div>
     <p class="text-xs mt-4">&copy; 2025 LANZADERA</p>
   </footer>
+<script>
+  // Mobile navigation toggle
+  (function () {
+    var btn = document.getElementById('menuBtn');
+    var menu = document.getElementById('mobileMenu');
+    if (!btn || !menu) return;
+    var iconOpen = document.getElementById('menuIconOpen');
+    var iconClose = document.getElementById('menuIconClose');
+    function setOpen(open) {
+      menu.classList.toggle('hidden', !open);
+      iconOpen.classList.toggle('hidden', open);
+      iconClose.classList.toggle('hidden', !open);
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    }
+    btn.addEventListener('click', function () { setOpen(menu.classList.contains('hidden')); });
+    menu.querySelectorAll('a').forEach(function (a) {
+      a.addEventListener('click', function () { setOpen(false); });
+    });
+    window.addEventListener('resize', function () { if (window.innerWidth >= 1024) setOpen(false); });
+  })();
+</script>
 </body>
 </html>

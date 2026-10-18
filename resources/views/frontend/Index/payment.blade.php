@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=1280">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Payment Details - Lanzadera</title>
   <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;500;600&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
@@ -26,29 +26,57 @@
 <body class="bg-Purple font-prompt pt-20">
 
   <!-- Navbar -->
-  <nav class="fixed top-0 left-0 right-0 z-50 flex flex-col items-center py-4 px-8 font-prompt" style="background-color: rgba(146, 95, 226, 1)">
+  <nav class="fixed top-0 left-0 right-0 z-50 flex flex-col items-center py-4 px-4 lg:px-8 font-prompt" style="background-color: rgba(146, 95, 226, 1)">
     <div class="flex items-center justify-between w-full max-w-6xl">
-      <div class="flex items-center absolute left-8">
+      <!-- Logo -->
+      <div class="flex items-center lg:absolute lg:left-8">
         <a href="#">
-          <img src="/images/lanzadera.svg" alt="Lanzadera Logo" class="h-24">
+          <img src="/images/lanzadera.svg" alt="Lanzadera Logo" class="h-12 lg:h-24">
         </a>
       </div>
-      <ul class="flex space-x-8 text-white font-medium mx-auto">
+
+      <!-- Menu (desktop) -->
+      <ul class="hidden lg:flex space-x-8 text-white font-medium mx-auto">
         <li><a href="/" class="hover:underline">Home</a></li>
         <li><a href="/categories" class="hover:underline">Categories</a></li>
         <li><a href="/favourite" class="hover:underline">Favourite</a></li>
         <li><a href="/my_order" class="hover:underline">My Order</a></li>
       </ul>
-      <div class="w-10 h-10 rounded-full border-2 border-white shadow absolute right-8 overflow-hidden">
-        <img src="/images/profile.svg" alt="Profile" class="w-full h-full object-cover rounded-full">
+
+      <!-- Right side -->
+      <div class="flex items-center gap-3 lg:absolute lg:right-8">
+        
+        <div class="w-10 h-10 shrink-0 rounded-full border-2 border-white shadow overflow-hidden">
+          <img src="/images/profile.svg" alt="Profile" class="w-full h-full object-cover rounded-full">
+        </div>
+        
+        <!-- Hamburger (mobile / tablet) -->
+        <button id="menuBtn" type="button" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobileMenu"
+                class="lg:hidden inline-flex items-center justify-center w-10 h-10 rounded-md text-white bg-black/25 border border-white/60">
+          <svg id="menuIconOpen" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+          <svg id="menuIconClose" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
       </div>
     </div>
+
+    <!-- Menu (mobile / tablet) -->
+    <ul id="mobileMenu" class="hidden lg:hidden w-full max-w-6xl mt-3 rounded-xl bg-[#925FE2] text-white font-medium p-4 space-y-1 shadow-lg max-h-[calc(100vh-6rem)] overflow-y-auto">
+      <li><a href="/" class="block py-2 hover:underline">Home</a></li>
+        <li><a href="/categories" class="block py-2 hover:underline">Categories</a></li>
+        <li><a href="/favourite" class="block py-2 hover:underline">Favourite</a></li>
+        <li><a href="/my_order" class="block py-2 hover:underline">My Order</a></li>
+      
+    </ul>
   </nav>
 
   <!-- Main Section -->
-  <section class="max-w-6xl mx-auto px-4 py-6 grid grid-cols-3 gap-6 font-poppins">
+  <section class="max-w-6xl mx-auto px-4 py-6 grid grid-cols-1 lg:grid-cols-3 gap-6 font-poppins">
     <!-- Left Section -->
-    <div class="col-span-2 space-y-6">
+    <div class="lg:col-span-2 space-y-6">
       <a href="{{ url()->previous() }}" class="inline-flex items-center px-4 py-2 border border-purple-600 rounded-md text-sm font-medium text-purple-600 hover:bg-purple-50 transition-colors duration-200">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
@@ -71,7 +99,7 @@
         <h2 class="text-lg font-semibold border-b pb-2">Address Information</h2>
         <div class="space-y-3">
           <div><label class="block text-sm font-medium mb-1" for="alamat">Alamat Lengkap</label><input type="text" id="alamat" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-400"></div>
-          <div class="grid grid-cols-3 gap-3">
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
             <div><label class="block text-sm font-medium mb-1" for="kodepos">Kode Pos</label><input type="text" id="kodepos" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-400"></div>
             <div><label class="block text-sm font-medium mb-1" for="kota">Kota/Kabupaten</label><input type="text" id="kota" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-400"></div>
             <div><label class="block text-sm font-medium mb-1" for="provinsi">Provinsi</label><input type="text" id="provinsi" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-400"></div>
@@ -126,19 +154,19 @@
           <p class="text-sm text-gray-600">Scan QR untuk bayar</p>
         </div>
       </button>
-        </div>
-      </div>
     </div>
+  </div>
+
 
     <!-- Right Section -->
-    <div class="col-span-1">
+    <div class="lg:col-span-1">
       <div class="bg-white shadow-md rounded-xl overflow-hidden text-sm text-gray-800 flex flex-col h-full">
         <div class="bg-purple-500 text-white text-center px-4 py-3">
           <h3 class="text-lg font-semibold">Paket Travel Karimunjawa – Surga Tropis di Jawa Tengah</h3>
         </div>
-        <div class="p-6 flex-1 flex flex-col justify-start space-y-5">
+        <div class="p-4 sm:p-6 flex-1 flex flex-col justify-start space-y-5">
           <img src="/images/KarimunJawa.jpg" alt="Karimunjawa" class="rounded-md w-full h-40 object-cover">
-          <div class="grid grid-cols-2 gap-4">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div class="bg-purple-50 border border-purple-200 rounded-md p-4 text-center">
               <p class="text-xs text-gray-500 font-medium">Berangkat</p>
               <input type="date" class="mt-1 w-full text-sm text-center border border-purple-300 rounded-md focus:ring-2 focus:ring-purple-400">
@@ -190,7 +218,7 @@
                 <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
               </svg>
             </button>
-          </div>
+
 
           <!-- Catatan Penting -->
           <div class="text-xs bg-yellow-50 border-l-4 border-yellow-400 text-yellow-900 p-4 rounded">
@@ -234,5 +262,26 @@
   </div>
   <p class="text-xs mt-4">&copy; 2025 LANZADERA</p>
 </footer>
+<script>
+  // Mobile navigation toggle
+  (function () {
+    var btn = document.getElementById('menuBtn');
+    var menu = document.getElementById('mobileMenu');
+    if (!btn || !menu) return;
+    var iconOpen = document.getElementById('menuIconOpen');
+    var iconClose = document.getElementById('menuIconClose');
+    function setOpen(open) {
+      menu.classList.toggle('hidden', !open);
+      iconOpen.classList.toggle('hidden', open);
+      iconClose.classList.toggle('hidden', !open);
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    }
+    btn.addEventListener('click', function () { setOpen(menu.classList.contains('hidden')); });
+    menu.querySelectorAll('a').forEach(function (a) {
+      a.addEventListener('click', function () { setOpen(false); });
+    });
+    window.addEventListener('resize', function () { if (window.innerWidth >= 1024) setOpen(false); });
+  })();
+</script>
 </body>
 </html>
